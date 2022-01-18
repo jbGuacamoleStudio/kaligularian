@@ -1,1 +1,8 @@
-<p>loading works!</p>
+<ng-container *ngIf="loading$ | async; else template">
+  Loading
+  <div class="spinner-border" role="status"></div>
+</ng-container>
+
+<ng-template #template>
+  <ng-content></ng-content>
+</ng-template>
