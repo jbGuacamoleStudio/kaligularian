@@ -4,22 +4,23 @@ import { Injectable } from '@angular/core';
 
 import { CREDENTIALS_MOCK } from './mock/credential.mock';
 import { Credentials } from './models/credentials';
+import { User } from './models/user';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private _isAuthenticatedSource = new BehaviorSubject<boolean>(false);
-  isAuthenticated$ = this._isAuthenticatedSource.asObservable();
+  private _userSource = new BehaviorSubject<User | undefined>(undefined);
+  user$ = this._userSource.asObservable();
 
   constructor() {}
 
-  login(credentials: Credentials): Observable<boolean> {
+  login(credentials: Credentials): Observable<User | undefined> {
     if (JSON.stringify(credentials) === JSON.stringify(CREDENTIALS_MOCK)) {
-      this._isAuthenticatedSource.next(true);
+      this._userSource.next({ id: '1', username: 'JohnDoe' });
     }
-    return this.isAuthenticated$;
+    return this.user$;
   }
 
   logout(): void {
-    this._isAuthenticatedSource.next(false);
+    this._userSource.next(undefined);
   }
 }

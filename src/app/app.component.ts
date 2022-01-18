@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ROUTES } from './shared/routes';
+import { User } from './user/models/user';
 import { UserService } from './user/user.service';
 
 @Component({
@@ -15,8 +16,8 @@ export class AppComponent {
   title = 'kaligularian';
   routes = ROUTES;
 
-  get isAuthenticated$(): Observable<boolean> {
-    return this._userService.isAuthenticated$;
+  get user$(): Observable<User | undefined> {
+    return this._userService.user$;
   }
 
   constructor(private _userService: UserService) {}

@@ -23,9 +23,9 @@ export class LogoutComponent {
     of(null)
       .pipe(
         take(1),
-        tap(() => this._userService.logout()),
         tap(() => this._loadingSource.next(true)),
         delay(1000),
+        tap(() => this._userService.logout()),
         tap(() => this._router.navigate([ROUTES.home]))
       )
       .subscribe();
