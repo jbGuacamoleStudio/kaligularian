@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ROUTES } from 'src/app/shared/routes';
+
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-logout',
@@ -6,8 +11,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./logout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LogoutComponent implements OnInit {
-  constructor() {}
+export class LogoutComponent {
+  constructor(private _userService: UserService, private _router: Router) {}
 
-  ngOnInit(): void {}
+  logout(): void {
+    this._userService.logout();
+    this._router.navigate([ROUTES.home]);
+  }
 }

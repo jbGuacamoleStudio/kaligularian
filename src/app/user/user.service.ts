@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { CREDENTIALS_MOCK } from './mock/credential.mock';
 import { Credentials } from './models/credentials';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserService {
   private _isAuthenticatedSource = new BehaviorSubject<boolean>(false);
   isAuthenticated$ = this._isAuthenticatedSource.asObservable();
@@ -17,5 +17,9 @@ export class UserService {
       this._isAuthenticatedSource.next(true);
     }
     return this.isAuthenticated$;
+  }
+
+  logout(): void {
+    this._isAuthenticatedSource.next(false);
   }
 }
