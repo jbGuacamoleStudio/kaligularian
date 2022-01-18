@@ -1,1 +1,80 @@
-<p>login works!</p>
+<h1>Login</h1>
+
+<ng-container *ngIf="errorMessage">
+  <div class="alert alert-danger">Error: invalid credential</div>
+</ng-container>
+
+<form
+  [formGroup]="form.group"
+  (ngSubmit)="onSubmit()"
+  *ngIf="form.errors$ | async as errors"
+>
+  <div class="form-group">
+    <label for="login_email">Email</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <span class="fa fa-at"></span>
+        </span>
+      </div>
+
+      <input
+        id="login_email"
+        type="email"
+        class="form-control rounded-right"
+        [ngClass]="{
+          'is-invalid':
+            !!errors.email &&
+            form.group.controls[form.controlName.email].touched,
+          'is-valid':
+            !errors.email && form.group.controls[form.controlName.email].touched
+        }"
+        placeholder="Username"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        [formControlName]="form.controlName.email"
+      />
+
+      <div class="invalid-feedback">
+        <span>{{ errors.email }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="login_password">Password</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <span class="fa fa-lock"></span>
+        </span>
+      </div>
+
+      <input
+        id="login_password"
+        type="password"
+        class="form-control rounded-right"
+        [ngClass]="{
+          'is-invalid':
+            !!errors.password &&
+            form.group.controls[form.controlName.password].touched,
+          'is-valid':
+            !errors.password &&
+            form.group.controls[form.controlName.password].touched
+        }"
+        placeholder="Password"
+        aria-label="Password"
+        aria-describedby="basic-addon1"
+        [formControlName]="form.controlName.password"
+      />
+
+      <div class="invalid-feedback">
+        <span>{{ errors.password }}</span>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="!form.group.valid">
+    Login
+  </button>
+</form>

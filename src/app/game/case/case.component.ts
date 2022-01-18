@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-case',
   templateUrl: './case.component.html',
-  styleUrls: ['./case.component.scss']
+  styleUrls: ['./case.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaseComponent implements OnInit {
 
